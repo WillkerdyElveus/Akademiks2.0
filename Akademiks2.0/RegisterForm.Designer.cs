@@ -71,7 +71,7 @@
             // 
             this.fNameTextBox.Location = new System.Drawing.Point(167, 371);
             this.fNameTextBox.Name = "fNameTextBox";
-            this.fNameTextBox.Size = new System.Drawing.Size(185, 30);
+            this.fNameTextBox.Size = new System.Drawing.Size(185, 43);
             this.fNameTextBox.TabIndex = 2;
             // 
             // studentView
@@ -131,7 +131,7 @@
             // 
             this.lNameTextBox.Location = new System.Drawing.Point(469, 371);
             this.lNameTextBox.Name = "lNameTextBox";
-            this.lNameTextBox.Size = new System.Drawing.Size(118, 30);
+            this.lNameTextBox.Size = new System.Drawing.Size(118, 43);
             this.lNameTextBox.TabIndex = 5;
             // 
             // label2
@@ -160,7 +160,7 @@
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(167, 433);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(238, 30);
+            this.dateTimePicker1.Size = new System.Drawing.Size(238, 43);
             this.dateTimePicker1.TabIndex = 7;
             // 
             // label4
@@ -169,7 +169,7 @@
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(71)))), ((int)(((byte)(160)))));
             this.label4.Location = new System.Drawing.Point(532, 437);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 22);
+            this.label4.Size = new System.Drawing.Size(130, 36);
             this.label4.TabIndex = 8;
             this.label4.Text = "Gender:";
             // 
@@ -180,7 +180,7 @@
             this.maleRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(71)))), ((int)(((byte)(160)))));
             this.maleRadioButton.Location = new System.Drawing.Point(639, 435);
             this.maleRadioButton.Name = "maleRadioButton";
-            this.maleRadioButton.Size = new System.Drawing.Size(75, 26);
+            this.maleRadioButton.Size = new System.Drawing.Size(117, 40);
             this.maleRadioButton.TabIndex = 9;
             this.maleRadioButton.TabStop = true;
             this.maleRadioButton.Text = "Male";
@@ -192,7 +192,7 @@
             this.femaleRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(71)))), ((int)(((byte)(160)))));
             this.femaleRadioButton.Location = new System.Drawing.Point(727, 435);
             this.femaleRadioButton.Name = "femaleRadioButton";
-            this.femaleRadioButton.Size = new System.Drawing.Size(97, 26);
+            this.femaleRadioButton.Size = new System.Drawing.Size(151, 40);
             this.femaleRadioButton.TabIndex = 10;
             this.femaleRadioButton.Text = "Female";
             this.femaleRadioButton.UseVisualStyleBackColor = true;
@@ -242,7 +242,7 @@
             // 
             this.phoneNumTextBox.Location = new System.Drawing.Point(662, 371);
             this.phoneNumTextBox.Name = "phoneNumTextBox";
-            this.phoneNumTextBox.Size = new System.Drawing.Size(185, 30);
+            this.phoneNumTextBox.Size = new System.Drawing.Size(185, 43);
             this.phoneNumTextBox.TabIndex = 16;
             // 
             // label6
@@ -299,13 +299,13 @@
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(463, 23);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(171, 34);
+            this.label7.Size = new System.Drawing.Size(269, 51);
             this.label7.TabIndex = 0;
             this.label7.Text = "Registration";
             // 
             // RegisterForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 36F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1113, 642);
