@@ -85,20 +85,22 @@ namespace Akademiks2._0
 
         private void newCourseButton_Click(object sender, EventArgs e)
         {
-            //This is for the future
-            //Code
+            CourseForm cf = new CourseForm();
+            cf.Show();
+            this.Hide();
             hidingMenu();
         }
         private void manageCourseButton_Click(object sender, EventArgs e)
         {
-            //This is for the future
-            //Code
+            ManageCourseForm mcf = new ManageCourseForm();
+            mcf.Show();
+            this.Hide();
             hidingMenu();
         }
         private void printCourseButton_Click(object sender, EventArgs e)
         {
-            //This is for the future
-            //Code
+            PrintCourseForm pcf = new PrintCourseForm();
+            pcf.Show();
             hidingMenu();
         }
         private void panelScore_Click(object sender, EventArgs e)
