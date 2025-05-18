@@ -12,13 +12,11 @@ namespace Akademiks2._0
 {
     class Database
     {
-        SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Lensky\OneDrive\Documents\GitHub\Akademiks2.0\Akademiks2.0\StudentDatabase.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Lensky\OneDrive\Documents\GitHub\Akademiks2.0\Akademiks2.0\ConnectedDatabase.mdf;Integrated Security=True;Connect Timeout=30");
 
         public SqlConnection getConnection()
         {
-
             return connection;
-
         }
         public void openConnection()
         {

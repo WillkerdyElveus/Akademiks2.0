@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,26 +17,26 @@ namespace Akademiks2._0
         CourseClass course = new CourseClass();
         Student student = new Student();
         ScoreClass score  = new ScoreClass();
+        Database connect  = new Database();
         public ScoreForm()
         {
             InitializeComponent();
         }
 
-        private void showScore()
+        private void showScore()  
         {
-            studentDataGridView.DataSource = score.getScoreList(new MySqlCommand("SELECT score.StudentId, student.StdFirstName, student.StdLastName, score.CourseName, score.Score, score.Description, FROM student INNER JOIN score ON score.StudentId=student.StdId"));
+            this.studentTableAdapter.Fill(this.studentDataSet.Student);
         }
 
         private void ScoreForm_Load(object sender, EventArgs e)
         {
-            studentCourseComboBox.DataSource = course.getCourseList2(new MySqlCommand("SELECT * FROM `course`"));
+            // TODO: This line of code loads data into the 'studentDataSet.Student' table. You can move, or remove it, as needed.
+            this.studentTableAdapter.Fill(this.studentDataSet.Student);
+            studentCourseComboBox.DataSource = course.getCourseList2(new SqlCommand("SELECT * FROM `Course`"));
             studentCourseComboBox.DisplayMember = "CourseName";
             studentCourseComboBox.ValueMember = "CourseName";
 
-           // showScore();
-
-            studentDataGridView.DataSource = student.getStudentList(new MySqlCommand("SELECT `StdId`, `StdFirstName`, `StdLastName` FROM `student`"));
-
+           showScore();
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -48,32 +49,29 @@ namespace Akademiks2._0
             {
                 int stdId = Convert.ToInt32(studentIdTextBox.Text);
                 string cName = studentCourseComboBox.Text;
-                double score = Convert.ToInt32(scoreTextBox.Text);
+                double scoreValue = Convert.ToDouble(scoreTextBox.Text);
                 string desc = descriptionTextBox.Text;
 
-                if(!score.checkScore(stdId, cName, score, desc))
+                if (!score.checkScore(stdId, cName))
                 {
-
-                
-
-                if (score.insertScore(stdId, cName, score, desc ))
-                {
-                    showScore();
-                    clearButton.PerformClick();
-                    MessageBox.Show("New score added", "Add Score", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    if (score.insertScore(stdId, cName, scoreValue, desc))
+                    {
+                        showScore();
+                        clearButton.PerformClick();
+                        MessageBox.Show("New score added", "Add Score", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Score not added", "Add Score", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Score not added", "Add Score", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The score for this course already exists", "Add Score", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                }
-                else
-                {
-                    MessageBox.Show("the score for this course already exists", "Add Score", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
         }
-    }
 
         private void clearButton_Click(object sender, EventArgs e)
         {
@@ -85,17 +83,26 @@ namespace Akademiks2._0
 
         private void studentDataGridView_Click(object sender, EventArgs e)
         {
-            studentIdTextBox.Text = studentDataGridView.CurrentRow.Cells[0].Value.ToString();
+            studentIdTextBox.Text = studentView.CurrentRow.Cells[0].Value.ToString();
         }
 
         private void studentButton_Click(object sender, EventArgs e)
         {
-            studentDataGridView.DataSource = student.getStudentList(new MySqlCommand("SELECT `StdId`, `StdFirstName`, `StdLastName` FROM `student`"));
+
+            SqlCommand command = new SqlCommand("SELECT * FROM Students", connect.getConnection());
         }
 
         private void scoreButton_Click(object sender, EventArgs e)
         {
             showScore();
+        }
+
+        private void studentBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.studentBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.studentDataSet);
+
         }
     }
 }

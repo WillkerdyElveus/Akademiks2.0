@@ -33,5 +33,38 @@ namespace Akademiks2._0.Properties {
                 return ((string)(this["StudentDatabaseConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\CourseDatabas" +
+            "e.mdf;Integrated Security=True")]
+        public string CourseDatabaseConnectionString {
+            get {
+                return ((string)(this["CourseDatabaseConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\ScoreDatabase" +
+            ".mdf;Integrated Security=True")]
+        public string ScoreDatabaseConnectionString {
+            get {
+                return ((string)(this["ScoreDatabaseConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\ConnectedData" +
+            "base.mdf;Integrated Security=True")]
+        public string ConnectedDatabaseConnectionString {
+            get {
+                return ((string)(this["ConnectedDatabaseConnectionString"]));
+            }
+        }
     }
 }
