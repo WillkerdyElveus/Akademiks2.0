@@ -39,9 +39,9 @@ namespace Akademiks2._0
             }
         }
 
-        public DataTable getStudentList()
+        public DataTable getStudentList(MySqlCommand command)
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `student`", connect.getconnection);
+            command.Connection = connect.getconnection;
             MySqlDataAdapter adapter = new MySqlDataAdapter(command);
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);

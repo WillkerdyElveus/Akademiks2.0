@@ -85,6 +85,7 @@ namespace Akademiks2._0
 
         private void newCourseButton_Click(object sender, EventArgs e)
         {
+            //openChildForm(new ScoreForm());
             CourseForm cf = new CourseForm();
             cf.Show();
             this.Hide();
@@ -109,12 +110,20 @@ namespace Akademiks2._0
         }
         private void newScoreButton_Click(object sender, EventArgs e)
         {
+            //openChildForm(new ScoreForm());
+            ScoreForm sf = new ScoreForm();
+            sf.Show();
+            this.Hide();
             //This is for the future
             //Code
             hidingMenu();
         }
         private void manageScoreButton_Click(object sender, EventArgs e)
         {
+            //openChildForm(new ManageScoreForm());
+            ManageScoreForm msf = new ManageScoreForm();
+            msf.Show();
+            this.Hide();
             //This is for the future
             //Code
             hidingMenu();

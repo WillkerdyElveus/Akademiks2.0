@@ -226,7 +226,7 @@
             this.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
             this.Name = "CourseForm";
             this.Text = "CourseForm";
-            this.Load += new System.EventHandler(this.CourseForm_Load);
+//            this.Load += new System.EventHandler(this.CourseForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.courseView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

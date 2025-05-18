@@ -60,10 +60,7 @@ namespace Akademiks2._0
             imageCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
         }
 
-        private void CourseForm_Load(object sender, EventArgs e)
-        {
-            showTable();
-        }
+        
 
     }
 }

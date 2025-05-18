@@ -96,7 +96,7 @@ namespace Akademiks2._0
         }
         public void showTable()
         {
-            studentView.DataSource = students.getStudentList();
+            studentView.DataSource = students.getStudentList(new MySql.Data.MySqlClient.MySqlCommand("SELECT * FROM `student`"));
             DataGridViewImageColumn imageCol = new DataGridViewImageColumn();
             imageCol = (DataGridViewImageColumn)studentView.Columns[7];
             imageCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
@@ -104,6 +104,7 @@ namespace Akademiks2._0
 
         private void RegisterForm_Load(object sender, EventArgs e)
         {
+
             showTable();
         }
     }

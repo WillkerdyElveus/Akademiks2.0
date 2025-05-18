@@ -133,6 +133,12 @@
     <Compile Include="ManageCourseForm.Designer.cs">
       <DependentUpon>ManageCourseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageScoreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageScoreForm.Designer.cs">
+      <DependentUpon>ManageScoreForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrintCourseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +153,13 @@
     <Compile Include="RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScoreClass.cs" />
+    <Compile Include="ScoreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScoreForm.Designer.cs">
+      <DependentUpon>ScoreForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Student.cs" />
     <EmbeddedResource Include="CourseForm.resx">
       <DependentUpon>CourseForm.cs</DependentUpon>
@@ -156,6 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageCourseForm.resx">
       <DependentUpon>ManageCourseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageScoreForm.resx">
+      <DependentUpon>ManageScoreForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrintCourseForm.resx">
       <DependentUpon>PrintCourseForm.cs</DependentUpon>
@@ -171,6 +187,9 @@
     </Compile>
     <EmbeddedResource Include="RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScoreForm.resx">
+      <DependentUpon>ScoreForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
