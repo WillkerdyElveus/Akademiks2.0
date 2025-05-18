@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using DGVPrinterHelper;
-using System.Data.SqlClient;
 
 namespace Akademiks2._0
 {
     public partial class PrintCourseForm : Form
     {
-        private CourseClass course = new CourseClass(); 
+        private CourseClass course = new CourseClass();
+        private 
         DGVPrinter printer = new DGVPrinter();
         public PrintCourseForm()
         {
@@ -24,17 +24,10 @@ namespace Akademiks2._0
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            string search = searchTextBox.Text;
 
-            SqlCommand command = new SqlCommand(
-                "SELECT * FROM Courses WHERE CourseName LIKE @search"
-            );
-
-            command.Parameters.Add("@search", SqlDbType.VarChar).Value = "%" + search + "%";
-
-            coursesView.DataSource = course.getCourseList2(command);
+            studentView.DataSource = course.getCourseList2(new MySqlCommand("SELECT * FROM  `course` WHERE CONCAT(`CourseName`) Like '%" + searchTextBox.Text + "% '"));
             searchTextBox.Clear();
-        }
+    }
 
         private void printButton_Click(object sender, EventArgs e)
         {
@@ -48,22 +41,13 @@ namespace Akademiks2._0
             printer.Footer = "Akademiks";
             printer.FooterSpacing = 15;
             printer.printDocument.DefaultPageSettings.Landscape = true;
-            printer.PrintDataGridView(coursesView);
+            printer.PrintDataGridView(studentView);
 
         }
 
         private void PrintCourseForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'connectedDataSet.Courses' table. You can move, or remove it, as needed.
-            this.coursesTableAdapter.Fill(this.connectedDataSet.Courses);
-        }
-
-        private void coursesBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.coursesBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.connectedDataSet);
-
+            studentView.DataSource = course.getCourseList();
         }
     }
 }

@@ -12,14 +12,16 @@ namespace Akademiks2._0
     public partial class RegisterForm : Form
     {
 
-        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Lensky\OneDrive\Documents\GitHub\Akademiks2.0\Akademiks2.0\ConnectedDatabase.mdf;Integrated Security=True;Connect Timeout=30";
+        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Lensky\OneDrive\Documents\GitHub\Akademiks2.0\Akademiks2.0\StudentDatabase.mdf;Integrated Security=True;Connect Timeout=30";
 
         Student students = new Student();
         public RegisterForm()
         {
             InitializeComponent();
-         
+            LoadStudents();
         }
+
+
         private void uploadButton_Click(object sender, EventArgs e)
         {
             //Add random photo
@@ -31,9 +33,10 @@ namespace Akademiks2._0
                 studentPhotoBox.Image = Image.FromFile(ofd.FileName);
             }
         }
+
         private void addButton_Click(object sender, EventArgs e)
         {
-            
+            //Adding Student
             string fname = fNameTextBox.Text;
             string lname = lNameTextBox.Text;
             DateTime bdate = dateTimePicker1.Value;
@@ -41,35 +44,50 @@ namespace Akademiks2._0
             string address = addressTextBox.Text;
             string gender = maleRadioButton.Checked ? "Male" : "Female";
 
-            int age = DateTime.Now.Year - bdate.Year;
-            if (age < 10 || age > 100)
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO Student ([First Name], [Last Name], [Date Of Birth], [Phone], [Address], [Gender]) " +
+               "VALUES (@FirstName, @LastName, @DateOfBirth, @Phone, @Address, @Gender)";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@FirstName", fname);
+                    cmd.Parameters.AddWithValue("@LastName", lname);
+                    cmd.Parameters.AddWithValue("@DateOfBirth", bdate);
+                    cmd.Parameters.AddWithValue("@Phone", phoneNum);
+                    cmd.Parameters.AddWithValue("@Address", address);
+                    cmd.Parameters.AddWithValue("@Gender", gender);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            LoadStudents();
+
+            int bornYear = dateTimePicker1.Value.Year;
+            int thisYear = DateTime.Now.Year;
+            if ((thisYear - bornYear) < 10 || (thisYear - bornYear) > 100)
             {
                 MessageBox.Show("The Student age must be between 10 and 100", "Invalid Birthdate", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
+            else if (verify())
+            {
+                try
+                {
+                    if (students.insertStudent(fname, lname, bdate, phoneNum, address, gender))
+                    {
 
-            if (!verify())
+                        MessageBox.Show("New Student Added", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
             {
                 MessageBox.Show("Empty Field", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                if (students.insertStudent(fname, lname, bdate, phoneNum, address, gender))
-                {
-                    MessageBox.Show("New Student Added", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    clearFields();
-                    this.studentsTableAdapter.Fill(this.connectedDataSets.Students);
-                }
-                else
-                {
-                    MessageBox.Show("Failed to Add Student", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         bool verify()
@@ -91,25 +109,26 @@ namespace Akademiks2._0
             lNameTextBox.Clear();
             phoneNumTextBox.Clear();
             addressTextBox.Clear();
-            maleRadioButton.Checked = true;
-            dateTimePicker1.Value = DateTime.Now;
-        }
-        private void clearFields()
-        {
-            fNameTextBox.Clear();
-            lNameTextBox.Clear();
-            phoneNumTextBox.Clear();
-            addressTextBox.Clear();
-            maleRadioButton.Checked = true;
-            dateTimePicker1.Value = DateTime.Now;
         }
 
-        
+        private void LoadStudents()
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Student";
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, con))
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    studentView.DataSource = dt;
+                }
+            }
+        }
         private void RegisterForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'connectedDataSet.Students' table. You can move, or remove it, as needed.
-            this.studentsTableAdapter.Fill(this.connectedDataSets.Students);
-            }
+            this.studentTableAdapter.Fill(this.studentDataSet.Student);
+
+        }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
@@ -119,8 +138,8 @@ namespace Akademiks2._0
         private void tableBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             this.Validate();
-            this.studentsBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.connectedDataSets);
+            this.studentBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.studentDataSet);
 
         }
 
@@ -130,18 +149,5 @@ namespace Akademiks2._0
             cs.ShowDialog();
             this.Hide();
         }
-
-        private void studentsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.studentsBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.connectedDataSets);
-
-        }
-
-        //private void studentView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        // {
-        //    this.studentsTableAdapter.Fill(this.connectedDataSet.Students);
-        //  }
     }
 }

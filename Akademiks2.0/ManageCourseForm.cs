@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,15 +23,16 @@ namespace Akademiks2._0
 
         private void ManageCourseForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'courseDataSet.Course' table. You can move, or remove it, as needed.
+            //show data of the course
             showTable();
         }
 
         public void showTable()
         {
-            
-            this.courseTableAdapter.Fill(this.courseDataSet.Course);
             courseView.DataSource = course.getCourseList();
+            DataGridViewImageColumn imageCol = new DataGridViewImageColumn();
+            imageCol = (DataGridViewImageColumn)courseView.Columns[7];
+            imageCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
         }
 
         private void clearButton_Click(object sender, EventArgs e)
@@ -95,7 +95,9 @@ namespace Akademiks2._0
                     MessageBox.Show(ex.Message, "Removed Course", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
         }
+
         private void courseView_Click(object sender, EventArgs e)
         {
             idTextBox.Text = courseView.CurrentRow.Cells[0].Value.ToString();
@@ -109,17 +111,10 @@ namespace Akademiks2._0
         private void searchButton_Click(object sender, EventArgs e)
         {
 
-            courseView.DataSource = course.getCourseList2(new SqlCommand("SELECT * FROM Courses WHERE CONCAT(CourseName) Like '%"+ searchTextBox.Text +"% '"));
+            courseView.DataSource = course.getCourseList2(new MySqlCommand("SELECT * FROM  `course` WHERE CONCAT(`CourseName`) Like '%"+ searchTextBox.Text +"% '"));
             searchTextBox.Clear();
         }
 
-        private void courseBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.courseBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.courseDataSet);
-
-        }
     }
 }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +13,12 @@ namespace Akademiks2._0
     {
         Database connect = new Database();
 
-        public bool insertCourse(string cpurseName, int courseHour, string courseDesc)
+        public bool insertCourse(string cName, int hr, string desc)
         {
-            SqlCommand command = new SqlCommand("Insert INTO Course (CourseName,CourseHour,Description) VALUES (@CourseName, @CourseHour, @CourseDescription)", connect.getConnection());
-            command.Parameters.Add("@CourseName",SqlDbType.VarChar).Value= cpurseName;
-            command.Parameters.Add("@CourseHour", SqlDbType.Int).Value= courseHour;
-            command.Parameters.Add("@CourseDescription", SqlDbType.VarChar).Value= courseDesc;
+            MySqlCommand command = new MySqlCommand("Insert INTO `course`(`CourseName`,`CourseHour`,`Description`) VALUES (@cn, @ch, @desc)", connect.getconnection);
+            command.Parameters.Add("@cn", MySqlDbType.VarChar).Value= cName;
+            command.Parameters.Add("@ch", MySqlDbType.Int32).Value= hr;
+            command.Parameters.Add("@desc", MySqlDbType.VarChar).Value= desc;
             connect.openConnection();
             if (command.ExecuteNonQuery() == 1)
             {
@@ -36,30 +35,31 @@ namespace Akademiks2._0
         //create a function to get course list
         public DataTable getCourseList()
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Course", connect.getConnection());
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `course`", connect.getconnection);
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
             return dataTable;
 
         }
         //change later to correct one
-        public DataTable getCourseList2(SqlCommand command)
+        public DataTable getCourseList2(MySqlCommand command)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
             return dataTable;
+
         }
 
         //create a update function for course edit
         public bool updateCourse(int id, string cName, int hr, string desc)
         {
-            SqlCommand command = new SqlCommand("UPDATE Course SET CourseName =@CourseName,CourseHour=@CourseHour,CourseDescription=@CourseDescription WHERE CourseId=@id", connect.getConnection());
-            command.Parameters.Add("@id", SqlDbType.Int).Value = id;
-            command.Parameters.Add("@cn", SqlDbType.VarChar).Value = cName;
-            command.Parameters.Add("@ch", SqlDbType.Int).Value = hr;
-            command.Parameters.Add("@desc", SqlDbType.VarChar).Value = desc;
+            MySqlCommand command = new MySqlCommand("UPDATE `course` SET `CourseName`=@cn,`CourseHour`=@ch,`Description`=@desc WHERE `CourseId`=@id", connect.getconnection);
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+            command.Parameters.Add("@cn", MySqlDbType.VarChar).Value = cName;
+            command.Parameters.Add("@ch", MySqlDbType.Int32).Value = hr;
+            command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
             connect.openConnection();
             if (command.ExecuteNonQuery() == 1)
             {
@@ -76,8 +76,8 @@ namespace Akademiks2._0
         //create a function to delete a course
         public bool deleteCourse(int id)
         {
-            SqlCommand command = new SqlCommand("DELETE Course WHERE CourseId=@id", connect.getConnection());
-            command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            MySqlCommand command = new MySqlCommand("DELETE `course` WHERE `CourseId`=@id", connect.getconnection);
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
             connect.openConnection();
             if (command.ExecuteNonQuery() == 1)
             {

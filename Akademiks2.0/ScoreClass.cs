@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +15,11 @@ namespace Akademiks2._0
 
         public bool insertScore(int stdid, string courseName, double score, string desc)
         {
-            SqlCommand command = new SqlCommand("Insert INTO Scores (StudentId,CourseName,Score) VALUES (@stid,@cn, @sco, @desc)", connect.getConnection());
-            command.Parameters.Add("@stid", SqlDbType.Int).Value = stdid;
-            command.Parameters.Add("@cn", SqlDbType.Int).Value = courseName;
-            command.Parameters.Add("@sco", SqlDbType.Decimal).Value = score;
-            command.Parameters.Add("@desc", SqlDbType.VarChar).Value = desc;
+            MySqlCommand command = new MySqlCommand("Insert INTO `score`(`StudentId`,`CourseName`,`Score`) VALUES (@stid,@cn, @sco, @desc)", connect.getconnection);
+            command.Parameters.Add("@stid", MySqlDbType.Int32).Value = stdid;
+            command.Parameters.Add("@cn", MySqlDbType.Int32).Value = courseName;
+            command.Parameters.Add("@sco", MySqlDbType.Double).Value = score;
+            command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
             connect.openConnection();
             if (command.ExecuteNonQuery() == 1)
             {
@@ -33,33 +32,34 @@ namespace Akademiks2._0
                 return false;
             }
         }
-        public DataTable getScoreList()
+        public DataTable getScoreList(MySqlCommand command)
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Scores", connect.getConnection());
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            command.Connection = connect.getconnection;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
             return dataTable;
+
         }
 
 
         public bool checkScore(int stdId, string cName)
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Scores WHERE StudentId = @stdId AND CourseName = @cName");
-            command.Parameters.Add("@stdId", SqlDbType.Int).Value = stdId;
-            command.Parameters.Add("@cName", SqlDbType.VarChar).Value = cName;
-
-            DataTable table = getScoreList();
-            return table.Rows.Count == 0;
+            DataTable table = getScoreList(new MySqlCommand("SELECT * FROM `score` WHERE `StudentId`= " + stdId + " AND `CourseName` = '" + cName + "'"));
+            if (table.Rows.Count > 0)
+            {
+                return false;
+            }
+            else { return true; }
         }
 
         public bool updateScore(int stdid, string scn, double score, string desc)
         {
-            SqlCommand command = new SqlCommand("UPDATE score SET Scores = @sco,Description = @desc WHERE StudentId = @stid AND CourseName = @scn", connect.getConnection());
-            command.Parameters.Add("@scn", SqlDbType.VarChar).Value = scn;
-            command.Parameters.Add("@stid", SqlDbType.Int).Value = stdid;
-            command.Parameters.Add("@sco", SqlDbType.Decimal).Value = score;
-            command.Parameters.Add("@desc", SqlDbType.VarChar).Value = desc;
+            MySqlCommand command = new MySqlCommand("UPDATE `score` SET `Score` = @sco,`Description` = @desc WHERE `StudentId` = @stid AND `CourseName` = @scn", connect.getconnection);
+            command.Parameters.Add("@scn", MySqlDbType.VarChar).Value = scn;
+            command.Parameters.Add("@stid", MySqlDbType.Int32).Value = stdid;
+            command.Parameters.Add("@sco", MySqlDbType.Double).Value = score;
+            command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
             connect.openConnection();
             if (command.ExecuteNonQuery() == 1)
             {
@@ -75,8 +75,8 @@ namespace Akademiks2._0
 
         public bool deleteScore(int id)
         {
-            SqlCommand command = new SqlCommand("DELETE FROM Score WHERE StudentId=@id", connect.getConnection());
-            command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            MySqlCommand command = new MySqlCommand("DELETE FROM `score` WHERE `StudentId`=@id", connect.getconnection);
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
             connect.openConnection();
             if (command.ExecuteNonQuery() == 1)
             {

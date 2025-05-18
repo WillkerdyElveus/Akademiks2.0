@@ -54,36 +54,13 @@ namespace Akademiks2._0
 
         public void showTable()
         {
-            coursesView.DataSource = course.getCourseList();
+            courseView.DataSource = course.getCourseList();
             DataGridViewImageColumn imageCol = new DataGridViewImageColumn();
-            imageCol = (DataGridViewImageColumn)coursesView.Columns[5];
+            imageCol = (DataGridViewImageColumn)courseView.Columns[7];
             imageCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
-            this.coursesTableAdapter.Fill(this.connectedDataSet.Courses);
-
         }
 
-        private void courseBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.coursesBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.connectedDataSet);
+        
 
-        }
-
-        private void CourseForm_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'connectedDataSet.Courses' table. You can move, or remove it, as needed.
-            this.coursesTableAdapter.Fill(this.connectedDataSet.Courses);
-          
-
-        }
-
-        private void coursesBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.coursesBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.connectedDataSet);
-
-        }
     }
 }

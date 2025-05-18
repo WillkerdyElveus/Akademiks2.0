@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -23,19 +22,15 @@ namespace Akademiks2._0
 
         private void ManageScoreForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'scoreDataSet.Score' table. You can move, or remove it, as needed.
-            
-            //studentCourseComboBox.DataSource = course.getCourseList2(new SqlCommand("SELECT * FROM `Score`"));
-           // studentCourseComboBox.DisplayMember = "CourseName";
-           // studentCourseComboBox.ValueMember = "CourseName";
-            showScore();
+            studentCourseComboBox.DataSource = course.getCourseList2(new MySqlCommand("SELECT * FROM `course`"));
+            studentCourseComboBox.DisplayMember = "CourseName";
+            studentCourseComboBox.ValueMember = "CourseName";
 
             showScore();
         }
         public void showScore()
         {
-          // studentCourseComboBox.DataSource = score.getScoreList(new SqlCommand("SELECT Score.StudentId, student.StdFirstName, student.StdLastName, score.CourseName, score.Score, score.Description, FROM student INNER JOIN score ON score.StudentId=student.StdId"));
-            this.scoreTableAdapter.Fill(this.scoreDataSet.Score);
+           studentCourseComboBox.DataSource = score.getScoreList(new MySqlCommand("SELECT score.StudentId, student.StdFirstName, student.StdLastName, score.CourseName, score.Score, score.Description, FROM student INNER JOIN score ON score.StudentId=student.StdId"));
 
         }
 
@@ -49,11 +44,14 @@ namespace Akademiks2._0
             {
                 int stdId = Convert.ToInt32(studentIdTextBox.Text);
                 string cName = studentCourseComboBox.Text;
-                double scoreValue = Convert.ToInt32(scoreTextBox.Text);
+                double score = Convert.ToInt32(scoreTextBox.Text);
                 string desc = descriptionTextBox.Text;
 
+               
 
-                    if (score.updateScore(stdId, cName, scoreValue, desc))
+
+
+                    if (score.updateScore(stdId, cName, score, desc))
                     {
                         showScore();
                         clearButton.PerformClick();
@@ -66,6 +64,7 @@ namespace Akademiks2._0
                     }
             }
         }
+
         private void deleteButton_Click(object sender, EventArgs e)
         {
             
@@ -88,6 +87,7 @@ namespace Akademiks2._0
                 
             }
         }
+
         private void clearButton_Click(object sender, EventArgs e)
         {
             studentIdTextBox.Clear();
@@ -106,25 +106,7 @@ namespace Akademiks2._0
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            string searchText = searchTextBox.Text;
-            //Changes to be made BRUVA
-            SqlCommand command = new SqlCommand(
-                "SELECT Scores.StudentId, student.StdFirstName, student.StdLastName, " +
-                "Scores.CourseName, Scores.Score, score.Description " +
-                "FROM student INNER JOIN score ON score.StudentId = student.StdId " +
-                "WHERE CONCAT(student.StdFirstName, student.StdLastName, Scores.CourseName) LIKE @searchText"
-            );
-
-            command.Parameters.Add("@searchText", SqlDbType.VarChar).Value = "%" + searchText + "%";
-
-        }
-
-        private void scoreBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.scoreBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.scoreDataSet);
-
+            scoreView.DataSource = score.getScoreList(new MySqlCommand("SELECT score.StudentId, student.StdFirstName, student.StdLastName, score.CourseName, score.Score, score.Description, FROM student INNER JOIN score ON score.StudentId=student.StdId WHERE CONCAT(student.StdFirstName, student.StdLastName, score.CourseName) LIKE  '%"+searchTextBox.Text+"%'"));
         }
     }
 }
