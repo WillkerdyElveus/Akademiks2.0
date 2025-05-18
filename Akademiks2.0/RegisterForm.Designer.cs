@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegisterForm));
             this.label1 = new System.Windows.Forms.Label();
             this.fNameTextBox = new System.Windows.Forms.TextBox();
-            this.studentView = new Guna.UI2.WinForms.Guna2DataGridView();
             this.lNameTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,9 +49,38 @@
             this.clearButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.studentView)).BeginInit();
+            this.studentDataSet = new Akademiks2._0.StudentDataSet();
+            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.studentTableAdapter = new Akademiks2._0.StudentDataSetTableAdapters.StudentTableAdapter();
+            this.tableAdapterManager = new Akademiks2._0.StudentDataSetTableAdapters.TableAdapterManager();
+            this.studentBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
+            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
+            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.studentBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
+            this.studentView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goBackButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.studentPhotoBox)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.studentDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingNavigator)).BeginInit();
+            this.studentBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.studentView)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,67 +98,14 @@
             // 
             this.fNameTextBox.Location = new System.Drawing.Point(167, 371);
             this.fNameTextBox.Name = "fNameTextBox";
-            this.fNameTextBox.Size = new System.Drawing.Size(185, 43);
+            this.fNameTextBox.Size = new System.Drawing.Size(185, 30);
             this.fNameTextBox.TabIndex = 2;
-            // 
-            // studentView
-            // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.studentView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.studentView.BackgroundColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.studentView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.studentView.ColumnHeadersHeight = 4;
-            this.studentView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.studentView.DefaultCellStyle = dataGridViewCellStyle3;
-            this.studentView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.studentView.Location = new System.Drawing.Point(12, 76);
-            this.studentView.Name = "studentView";
-            this.studentView.RowHeadersVisible = false;
-            this.studentView.RowHeadersWidth = 51;
-            this.studentView.RowTemplate.Height = 80;
-            this.studentView.Size = new System.Drawing.Size(1089, 289);
-            this.studentView.TabIndex = 3;
-            this.studentView.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.studentView.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.studentView.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.studentView.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.studentView.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.studentView.ThemeStyle.BackColor = System.Drawing.Color.Gainsboro;
-            this.studentView.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.studentView.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.studentView.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.studentView.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.studentView.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.studentView.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.studentView.ThemeStyle.HeaderStyle.Height = 4;
-            this.studentView.ThemeStyle.ReadOnly = false;
-            this.studentView.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.studentView.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.studentView.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.studentView.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.studentView.ThemeStyle.RowsStyle.Height = 80;
-            this.studentView.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.studentView.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
             // lNameTextBox
             // 
             this.lNameTextBox.Location = new System.Drawing.Point(469, 371);
             this.lNameTextBox.Name = "lNameTextBox";
-            this.lNameTextBox.Size = new System.Drawing.Size(118, 43);
+            this.lNameTextBox.Size = new System.Drawing.Size(118, 30);
             this.lNameTextBox.TabIndex = 5;
             // 
             // label2
@@ -160,7 +134,7 @@
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(167, 433);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(238, 43);
+            this.dateTimePicker1.Size = new System.Drawing.Size(238, 30);
             this.dateTimePicker1.TabIndex = 7;
             // 
             // label4
@@ -169,7 +143,7 @@
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(71)))), ((int)(((byte)(160)))));
             this.label4.Location = new System.Drawing.Point(532, 437);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 36);
+            this.label4.Size = new System.Drawing.Size(83, 22);
             this.label4.TabIndex = 8;
             this.label4.Text = "Gender:";
             // 
@@ -180,7 +154,7 @@
             this.maleRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(71)))), ((int)(((byte)(160)))));
             this.maleRadioButton.Location = new System.Drawing.Point(639, 435);
             this.maleRadioButton.Name = "maleRadioButton";
-            this.maleRadioButton.Size = new System.Drawing.Size(117, 40);
+            this.maleRadioButton.Size = new System.Drawing.Size(75, 26);
             this.maleRadioButton.TabIndex = 9;
             this.maleRadioButton.TabStop = true;
             this.maleRadioButton.Text = "Male";
@@ -192,7 +166,7 @@
             this.femaleRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(71)))), ((int)(((byte)(160)))));
             this.femaleRadioButton.Location = new System.Drawing.Point(727, 435);
             this.femaleRadioButton.Name = "femaleRadioButton";
-            this.femaleRadioButton.Size = new System.Drawing.Size(151, 40);
+            this.femaleRadioButton.Size = new System.Drawing.Size(97, 26);
             this.femaleRadioButton.TabIndex = 10;
             this.femaleRadioButton.Text = "Female";
             this.femaleRadioButton.UseVisualStyleBackColor = true;
@@ -242,7 +216,7 @@
             // 
             this.phoneNumTextBox.Location = new System.Drawing.Point(662, 371);
             this.phoneNumTextBox.Name = "phoneNumTextBox";
-            this.phoneNumTextBox.Size = new System.Drawing.Size(185, 43);
+            this.phoneNumTextBox.Size = new System.Drawing.Size(185, 30);
             this.phoneNumTextBox.TabIndex = 16;
             // 
             // label6
@@ -299,16 +273,243 @@
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(463, 23);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(269, 51);
+            this.label7.Size = new System.Drawing.Size(171, 34);
             this.label7.TabIndex = 0;
             this.label7.Text = "Registration";
             // 
+            // studentDataSet
+            // 
+            this.studentDataSet.DataSetName = "StudentDataSet";
+            this.studentDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // studentBindingSource
+            // 
+            this.studentBindingSource.DataMember = "Student";
+            this.studentBindingSource.DataSource = this.studentDataSet;
+            // 
+            // studentTableAdapter
+            // 
+            this.studentTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.StudentTableAdapter = this.studentTableAdapter;
+            this.tableAdapterManager.UpdateOrder = Akademiks2._0.StudentDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // studentBindingNavigator
+            // 
+            this.studentBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.studentBindingNavigator.BindingSource = this.studentBindingSource;
+            this.studentBindingNavigator.CountItem = this.bindingNavigatorCountItem;
+            this.studentBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
+            this.studentBindingNavigator.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.studentBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bindingNavigatorMoveFirstItem,
+            this.bindingNavigatorMovePreviousItem,
+            this.bindingNavigatorSeparator,
+            this.bindingNavigatorPositionItem,
+            this.bindingNavigatorCountItem,
+            this.bindingNavigatorSeparator1,
+            this.bindingNavigatorMoveNextItem,
+            this.bindingNavigatorMoveLastItem,
+            this.bindingNavigatorSeparator2,
+            this.bindingNavigatorAddNewItem,
+            this.bindingNavigatorDeleteItem,
+            this.studentBindingNavigatorSaveItem});
+            this.studentBindingNavigator.Location = new System.Drawing.Point(0, 70);
+            this.studentBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
+            this.studentBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
+            this.studentBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
+            this.studentBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
+            this.studentBindingNavigator.Name = "studentBindingNavigator";
+            this.studentBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
+            this.studentBindingNavigator.Size = new System.Drawing.Size(1113, 27);
+            this.studentBindingNavigator.TabIndex = 20;
+            this.studentBindingNavigator.Text = "bindingNavigator1";
+            // 
+            // bindingNavigatorAddNewItem
+            // 
+            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
+            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
+            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorAddNewItem.Text = "Add new";
+            // 
+            // bindingNavigatorCountItem
+            // 
+            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(45, 24);
+            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            // 
+            // bindingNavigatorDeleteItem
+            // 
+            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
+            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
+            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorDeleteItem.Text = "Delete";
+            // 
+            // bindingNavigatorMoveFirstItem
+            // 
+            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
+            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorMoveFirstItem.Text = "Move first";
+            // 
+            // bindingNavigatorMovePreviousItem
+            // 
+            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
+            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+            // 
+            // bindingNavigatorSeparator
+            // 
+            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 27);
+            // 
+            // bindingNavigatorPositionItem
+            // 
+            this.bindingNavigatorPositionItem.AccessibleName = "Position";
+            this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 27);
+            this.bindingNavigatorPositionItem.Text = "0";
+            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+            // 
+            // bindingNavigatorSeparator1
+            // 
+            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 27);
+            // 
+            // bindingNavigatorMoveNextItem
+            // 
+            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
+            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorMoveNextItem.Text = "Move next";
+            // 
+            // bindingNavigatorMoveLastItem
+            // 
+            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
+            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorMoveLastItem.Text = "Move last";
+            // 
+            // bindingNavigatorSeparator2
+            // 
+            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // studentBindingNavigatorSaveItem
+            // 
+            this.studentBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.studentBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("studentBindingNavigatorSaveItem.Image")));
+            this.studentBindingNavigatorSaveItem.Name = "studentBindingNavigatorSaveItem";
+            this.studentBindingNavigatorSaveItem.Size = new System.Drawing.Size(29, 24);
+            this.studentBindingNavigatorSaveItem.Text = "Save Data";
+            // 
+            // studentView
+            // 
+            this.studentView.AutoGenerateColumns = false;
+            this.studentView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.studentView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6});
+            this.studentView.DataSource = this.studentBindingSource;
+            this.studentView.Location = new System.Drawing.Point(12, 100);
+            this.studentView.Name = "studentView";
+            this.studentView.RowHeadersWidth = 51;
+            this.studentView.RowTemplate.Height = 80;
+            this.studentView.Size = new System.Drawing.Size(1089, 265);
+            this.studentView.TabIndex = 20;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "First Name";
+            this.dataGridViewTextBoxColumn1.HeaderText = "First Name";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Last Name";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Last Name";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Date Of Birth";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Date Of Birth";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Phone";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Phone";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Address";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Address";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Gender";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Gender";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 125;
+            // 
+            // goBackButton
+            // 
+            this.goBackButton.BackColor = System.Drawing.Color.Red;
+            this.goBackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.goBackButton.Location = new System.Drawing.Point(167, 546);
+            this.goBackButton.Name = "goBackButton";
+            this.goBackButton.Size = new System.Drawing.Size(157, 41);
+            this.goBackButton.TabIndex = 21;
+            this.goBackButton.Text = "Go Back";
+            this.goBackButton.UseVisualStyleBackColor = false;
+            this.goBackButton.Click += new System.EventHandler(this.goBackButton_Click);
+            // 
             // RegisterForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 36F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1113, 642);
+            this.Controls.Add(this.goBackButton);
+            this.Controls.Add(this.studentView);
+            this.Controls.Add(this.studentBindingNavigator);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.addButton);
@@ -325,19 +526,24 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lNameTextBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.studentView);
             this.Controls.Add(this.fNameTextBox);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RegisterForm";
             this.Text = "RegisterForm";
             this.Load += new System.EventHandler(this.RegisterForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.studentView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentPhotoBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.studentDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingNavigator)).EndInit();
+            this.studentBindingNavigator.ResumeLayout(false);
+            this.studentBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.studentView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,7 +552,6 @@
         #endregion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox fNameTextBox;
-        private Guna.UI2.WinForms.Guna2DataGridView studentView;
         private System.Windows.Forms.TextBox lNameTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -364,5 +569,30 @@
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label7;
+        private StudentDataSet studentDataSet;
+        private System.Windows.Forms.BindingSource studentBindingSource;
+        private StudentDataSetTableAdapters.StudentTableAdapter studentTableAdapter;
+        private StudentDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.BindingNavigator studentBindingNavigator;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
+        private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
+        private System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator1;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
+        private System.Windows.Forms.ToolStripButton studentBindingNavigatorSaveItem;
+        private System.Windows.Forms.DataGridView studentView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.Button goBackButton;
     }
 }
