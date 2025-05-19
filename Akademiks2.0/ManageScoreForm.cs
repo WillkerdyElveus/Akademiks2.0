@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,9 @@ namespace Akademiks2._0
 
         private void ManageScoreForm_Load(object sender, EventArgs e)
         {
-            studentCourseComboBox.DataSource = course.getCourseList2(new MySqlCommand("SELECT * FROM `course`"));
+            // TODO: This line of code loads data into the 'studentsDataSet.Score' table. You can move, or remove it, as needed.
+            this.scoreTableAdapter.Fill(this.studentsDataSet.Score);
+            studentCourseComboBox.DataSource = course.getCourseList2(new SqlCommand("SELECT * FROM Course"));
             studentCourseComboBox.DisplayMember = "CourseName";
             studentCourseComboBox.ValueMember = "CourseName";
 
@@ -30,7 +33,7 @@ namespace Akademiks2._0
         }
         public void showScore()
         {
-           studentCourseComboBox.DataSource = score.getScoreList(new MySqlCommand("SELECT score.StudentId, student.StdFirstName, student.StdLastName, score.CourseName, score.Score, score.Description, FROM student INNER JOIN score ON score.StudentId=student.StdId"));
+           studentCourseComboBox.DataSource = score.getScoreList2(new SqlCommand("SELECT Score.StudentID, Student.[First Name], Student.[Last Name], Score.CourseName, Score.Score, Score.Description FROM Student INNER JOIN Score ON Score.StudentID=Student.StudentID"));
 
         }
 
@@ -44,14 +47,14 @@ namespace Akademiks2._0
             {
                 int stdId = Convert.ToInt32(studentIdTextBox.Text);
                 string cName = studentCourseComboBox.Text;
-                double score = Convert.ToInt32(scoreTextBox.Text);
+                double scoreValue = Convert.ToInt32(scoreTextBox.Text);
                 string desc = descriptionTextBox.Text;
 
                
 
 
 
-                    if (score.updateScore(stdId, cName, score, desc))
+                    if (score.updateScore(stdId, cName, scoreValue, desc))
                     {
                         showScore();
                         clearButton.PerformClick();
@@ -106,7 +109,15 @@ namespace Akademiks2._0
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            scoreView.DataSource = score.getScoreList(new MySqlCommand("SELECT score.StudentId, student.StdFirstName, student.StdLastName, score.CourseName, score.Score, score.Description, FROM student INNER JOIN score ON score.StudentId=student.StdId WHERE CONCAT(student.StdFirstName, student.StdLastName, score.CourseName) LIKE  '%"+searchTextBox.Text+"%'"));
+            scoreView.DataSource = score.getScoreList(new SqlCommand("SELECT Score.StudentID,Student.[First Name], Student.[Last Name], Score.CourseName, Score.Score, Score.Description FROM Student INNER JOIN score ON Score.StudentID=Student.StudentdID WHERE CONCAT(Student.Student.[First Name], Student.[Last Name], Score.CourseName) LIKE  '%" + searchTextBox.Text+"%'"));
+        }
+
+        private void scoreBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.scoreBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.studentsDataSet);
+
         }
     }
 }

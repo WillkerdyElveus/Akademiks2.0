@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.panelSlide = new System.Windows.Forms.Panel();
             this.exitButton = new System.Windows.Forms.Button();
+            this.dashBoardButton = new System.Windows.Forms.Button();
             this.panelScoreMenu = new System.Windows.Forms.Panel();
             this.printScoreButton = new System.Windows.Forms.Button();
             this.manageScoreButton = new System.Windows.Forms.Button();
@@ -59,9 +60,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.totalFemaleStudent = new System.Windows.Forms.Label();
+            this.totalMaleStudent = new System.Windows.Forms.Label();
+            this.totalStudent = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.userLabel = new System.Windows.Forms.Label();
@@ -89,6 +90,7 @@
             this.panelSlide.AutoScroll = true;
             this.panelSlide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(71)))), ((int)(((byte)(160)))));
             this.panelSlide.Controls.Add(this.exitButton);
+            this.panelSlide.Controls.Add(this.dashBoardButton);
             this.panelSlide.Controls.Add(this.panelScoreMenu);
             this.panelSlide.Controls.Add(this.panelScore);
             this.panelSlide.Controls.Add(this.panelCourseMenu);
@@ -109,15 +111,32 @@
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.Color.White;
-            this.exitButton.Location = new System.Drawing.Point(0, 830);
+            this.exitButton.Location = new System.Drawing.Point(0, 885);
             this.exitButton.Name = "exitButton";
             this.exitButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.exitButton.Size = new System.Drawing.Size(186, 55);
-            this.exitButton.TabIndex = 7;
+            this.exitButton.TabIndex = 10;
             this.exitButton.Text = "Exit";
             this.exitButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // dashBoardButton
+            // 
+            this.dashBoardButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dashBoardButton.FlatAppearance.BorderSize = 0;
+            this.dashBoardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dashBoardButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dashBoardButton.ForeColor = System.Drawing.Color.White;
+            this.dashBoardButton.Location = new System.Drawing.Point(0, 830);
+            this.dashBoardButton.Name = "dashBoardButton";
+            this.dashBoardButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.dashBoardButton.Size = new System.Drawing.Size(186, 55);
+            this.dashBoardButton.TabIndex = 9;
+            this.dashBoardButton.Text = "DashBoard";
+            this.dashBoardButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.dashBoardButton.UseVisualStyleBackColor = true;
+            this.dashBoardButton.Click += new System.EventHandler(this.dashBoardButton_Click);
             // 
             // panelScoreMenu
             // 
@@ -458,9 +477,9 @@
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.comboBox1);
-            this.panel3.Controls.Add(this.label8);
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.totalFemaleStudent);
+            this.panel3.Controls.Add(this.totalMaleStudent);
+            this.panel3.Controls.Add(this.totalStudent);
             this.panel3.Location = new System.Drawing.Point(0, 487);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(925, 116);
@@ -508,38 +527,38 @@
             this.comboBox1.Size = new System.Drawing.Size(240, 24);
             this.comboBox1.TabIndex = 4;
             // 
-            // label8
+            // totalFemaleStudent
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(157, 53);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(91, 23);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Female:";
+            this.totalFemaleStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.totalFemaleStudent.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalFemaleStudent.ForeColor = System.Drawing.Color.White;
+            this.totalFemaleStudent.Location = new System.Drawing.Point(157, 53);
+            this.totalFemaleStudent.Name = "totalFemaleStudent";
+            this.totalFemaleStudent.Size = new System.Drawing.Size(135, 23);
+            this.totalFemaleStudent.TabIndex = 3;
+            this.totalFemaleStudent.Text = "Female:";
             // 
-            // label7
+            // totalMaleStudent
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(36, 53);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 23);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Male:";
+            this.totalMaleStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.totalMaleStudent.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalMaleStudent.ForeColor = System.Drawing.Color.White;
+            this.totalMaleStudent.Location = new System.Drawing.Point(36, 53);
+            this.totalMaleStudent.Name = "totalMaleStudent";
+            this.totalMaleStudent.Size = new System.Drawing.Size(115, 23);
+            this.totalMaleStudent.TabIndex = 2;
+            this.totalMaleStudent.Text = "Male:";
             // 
-            // label6
+            // totalStudent
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(36, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(151, 23);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Total Students:";
+            this.totalStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.totalStudent.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalStudent.ForeColor = System.Drawing.Color.White;
+            this.totalStudent.Location = new System.Drawing.Point(36, 16);
+            this.totalStudent.Name = "totalStudent";
+            this.totalStudent.Size = new System.Drawing.Size(204, 23);
+            this.totalStudent.TabIndex = 1;
+            this.totalStudent.Text = "Total Students:";
             // 
             // panel2
             // 
@@ -669,7 +688,6 @@
         private System.Windows.Forms.Button manageCourseButton;
         private System.Windows.Forms.Button newCourseButton;
         private System.Windows.Forms.Button CourseInfo;
-        private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Panel panelScoreMenu;
         private System.Windows.Forms.Button printScoreButton;
         private System.Windows.Forms.Button manageScoreButton;
@@ -687,9 +705,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Label roleLabel;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label totalStudent;
+        private System.Windows.Forms.Label totalFemaleStudent;
+        private System.Windows.Forms.Label totalMaleStudent;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -697,6 +715,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button dashBoardButton;
+        private System.Windows.Forms.Button exitButton;
     }
 }
 

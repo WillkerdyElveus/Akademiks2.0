@@ -12,7 +12,7 @@ namespace Akademiks2._0
     public partial class RegisterForm : Form
     {
 
-        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Lensky\OneDrive\Documents\GitHub\Akademiks2.0\Akademiks2.0\StudentDatabase.mdf;Integrated Security=True;Connect Timeout=30";
+        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Lensky\OneDrive\Documents\GitHub\Akademiks2.0\Akademiks2.0\StudentsDatabase.mdf;Integrated Security=True;Connect Timeout=30";
 
         Student students = new Student();
         public RegisterForm()
@@ -36,7 +36,7 @@ namespace Akademiks2._0
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            //Adding Student
+            // Gather input
             string fname = fNameTextBox.Text;
             string lname = lNameTextBox.Text;
             DateTime bdate = dateTimePicker1.Value;
@@ -44,52 +44,47 @@ namespace Akademiks2._0
             string address = addressTextBox.Text;
             string gender = maleRadioButton.Checked ? "Male" : "Female";
 
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                string query = "INSERT INTO Student ([First Name], [Last Name], [Date Of Birth], [Phone], [Address], [Gender]) " +
-               "VALUES (@FirstName, @LastName, @DateOfBirth, @Phone, @Address, @Gender)";
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@FirstName", fname);
-                    cmd.Parameters.AddWithValue("@LastName", lname);
-                    cmd.Parameters.AddWithValue("@DateOfBirth", bdate);
-                    cmd.Parameters.AddWithValue("@Phone", phoneNum);
-                    cmd.Parameters.AddWithValue("@Address", address);
-                    cmd.Parameters.AddWithValue("@Gender", gender);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            LoadStudents();
-
-            int bornYear = dateTimePicker1.Value.Year;
-            int thisYear = DateTime.Now.Year;
-            if ((thisYear - bornYear) < 10 || (thisYear - bornYear) > 100)
+            int age = DateTime.Now.Year - bdate.Year;
+            if (age < 10 || age > 100)
             {
                 MessageBox.Show("The Student age must be between 10 and 100", "Invalid Birthdate", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else if (verify())
-            {
-                try
-                {
-                    if (students.insertStudent(fname, lname, bdate, phoneNum, address, gender))
-                    {
 
-                        MessageBox.Show("New Student Added", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            if (!verify())
             {
                 MessageBox.Show("Empty Field", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                if (students.insertStudent(fname, lname, bdate, phoneNum, address, gender))
+                {
+                    MessageBox.Show("New Student Added", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    clearFields();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to Add Student", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void clearFields()
+        {
+            fNameTextBox.Clear();
+            lNameTextBox.Clear();
+            dateTimePicker1.Value = DateTime.Now;
+            phoneNumTextBox.Clear();
+            addressTextBox.Clear();
+            maleRadioButton.Checked = true;
+        }
+
         bool verify()
         {
             if ((fNameTextBox.Text == "") || (lNameTextBox.Text == "") ||
@@ -126,8 +121,8 @@ namespace Akademiks2._0
         }
         private void RegisterForm_Load(object sender, EventArgs e)
         {
-            this.studentTableAdapter.Fill(this.studentDataSet.Student);
-
+            // TODO: This line of code loads data into the 'studentsDatabaseDataSet.Student' table. You can move, or remove it, as needed.
+            this.studentTableAdapter.Fill(this.studentsDatabaseDataSet.Student);          
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -139,7 +134,7 @@ namespace Akademiks2._0
         {
             this.Validate();
             this.studentBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.studentDataSet);
+            this.tableAdapterManager.UpdateAll(this.studentsDatabaseDataSet);
 
         }
 

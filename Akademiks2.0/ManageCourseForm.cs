@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using TheArtOfDevHtmlRenderer.Adapters;
 
 namespace Akademiks2._0
 {
     public partial class ManageCourseForm : Form
     {
         private CourseClass course = new CourseClass();
+        private BindingSource bs = new BindingSource();
 
         public ManageCourseForm()
         {
@@ -23,16 +17,18 @@ namespace Akademiks2._0
 
         private void ManageCourseForm_Load(object sender, EventArgs e)
         {
-            //show data of the course
+            // Load data into dataset if needed
+            this.courseTableAdapter.Fill(this.studentsDataSet.Course);
+
+            // Show fresh data in the DataGridView
             showTable();
         }
 
         public void showTable()
         {
-            courseView.DataSource = course.getCourseList();
-            DataGridViewImageColumn imageCol = new DataGridViewImageColumn();
-            imageCol = (DataGridViewImageColumn)courseView.Columns[7];
-            imageCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            // Get fresh data and bind via BindingSource
+            bs.DataSource = course.getCourseList();
+            courseView.DataSource = bs;
         }
 
         private void clearButton_Click(object sender, EventArgs e)
@@ -45,76 +41,115 @@ namespace Akademiks2._0
 
         private void updateButton_Click(object sender, EventArgs e)
         {
-
-            if (cNameTextBox.Text == "" || hourTextBox.Text == "" || idTextBox.Text.Equals(""))
+            if (string.IsNullOrWhiteSpace(idTextBox.Text) ||
+                string.IsNullOrWhiteSpace(cNameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(hourTextBox.Text))
             {
-                MessageBox.Show("Need course data", "Field Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select a course and fill all required fields", "Field Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
-            {
 
-                int id = Convert.ToInt32(idTextBox);
+            try
+            {
+                int id = Convert.ToInt32(idTextBox.Text);
                 string cName = cNameTextBox.Text;
-                int chr = Convert.ToInt32(hourTextBox.Text);
+                int hours = Convert.ToInt32(hourTextBox.Text);
                 string desc = descriptionTextBox.Text;
 
-                if (course.updateCourse(id, cName, chr, desc))
+                bool updated = course.updateCourse(id, cName, hours, desc);
+
+                if (updated)
                 {
+                    MessageBox.Show("Course updated successfully", "Update Course", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     clearButton.PerformClick();
-                    MessageBox.Show("Course updated successfully", "Update Course", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+
+                    // Refresh the DataGridView properly
+                    showTable();
+                    bs.ResetBindings(false); // Force refresh
                 }
                 else
                 {
-                    MessageBox.Show("Error-Course was not updated", "Update Course", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to update course. Please try again.", "Update Course", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid number format in ID or Hours field.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if (idTextBox.Text.Equals(""))
+            if (string.IsNullOrWhiteSpace(idTextBox.Text))
             {
                 MessageBox.Show("Need course ID", "Field Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                try
-                {
-                    int id = Convert.ToInt32(idTextBox);
-                    if (course.deleteCourse(id))
-                    {
-                        clearButton.PerformClick();
-                        MessageBox.Show("Course deleted successfully", "Removed Course", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
-                }catch(Exception ex)
-                
-                {
-                    MessageBox.Show(ex.Message, "Removed Course", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                return;
             }
 
+            try
+            {
+                int id = Convert.ToInt32(idTextBox.Text);
+                if (course.deleteCourse(id))
+                {
+                    clearButton.PerformClick();
+                    showTable();
+                    MessageBox.Show("Course deleted successfully", "Removed Course", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Course not found or not deleted.", "Removed Course", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Removed Course", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void courseView_Click(object sender, EventArgs e)
         {
-            idTextBox.Text = courseView.CurrentRow.Cells[0].Value.ToString();
-            cNameTextBox.Text = courseView.CurrentRow.Cells[1].Value.ToString();
-            hourTextBox.Text = courseView.CurrentRow.Cells[2].Value.ToString();
-            descriptionTextBox.Text = courseView.CurrentRow.Cells[3].Value.ToString();
-
+            if (courseView.CurrentRow != null)
+            {
+                idTextBox.Text = courseView.CurrentRow.Cells[0].Value.ToString();
+                cNameTextBox.Text = courseView.CurrentRow.Cells[1].Value.ToString();
+                hourTextBox.Text = courseView.CurrentRow.Cells[2].Value.ToString();
+                descriptionTextBox.Text = courseView.CurrentRow.Cells[3].Value.ToString();
+            }
         }
 
-        //change courselist 2 later
         private void searchButton_Click(object sender, EventArgs e)
         {
+            string searchTerm = searchTextBox.Text.Trim();
 
-            courseView.DataSource = course.getCourseList2(new MySqlCommand("SELECT * FROM  `course` WHERE CONCAT(`CourseName`) Like '%"+ searchTextBox.Text +"% '"));
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Course WHERE CourseName LIKE @search");
+                cmd.Parameters.Add("@search", SqlDbType.VarChar).Value = "%" + searchTerm + "%";
+                bs.DataSource = course.getCourseList2(cmd);
+                courseView.DataSource = bs;
+            }
+
             searchTextBox.Clear();
         }
 
+        private void courseBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.courseBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.studentsDataSet);
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchValue = searchTextBox.Text.Trim();
+            SqlCommand command = new SqlCommand("SELECT * FROM Course WHERE CourseName LIKE @search");
+            command.Parameters.Add("@search", SqlDbType.VarChar).Value = "%" + searchValue + "%";
+            bs.DataSource = course.getCourseList2(command);
+            courseView.DataSource = bs;
+        }
     }
 }
-

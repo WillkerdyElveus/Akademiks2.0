@@ -12,6 +12,8 @@ namespace Akademiks2._0
 {
     public partial class LoginForm : Form
     {
+        Student student = new Student();
+
         public LoginForm()
         {
             InitializeComponent();
@@ -52,27 +54,21 @@ namespace Akademiks2._0
         }
         private void registrationButton_Click(object sender, EventArgs e)
         {
-            RegisterForm rs = new RegisterForm();
-            rs.Show();
-            this.Hide();
+            openChildForm(new RegisterForm());
             hidingMenu();
         }
         private void manageStudentButton_Click(object sender, EventArgs e)
         {
-            //This is for the future
-            //Code
+            openChildForm(new ManageStudentsForm());
             hidingMenu();
         }
         private void statusButton_Click(object sender, EventArgs e)
         {
-            //This is for the future
-            //Code
             hidingMenu();
         }
         private void studentPrintButton_Click(object sender, EventArgs e)
         {
-            //This is for the future
-            //Code
+            openChildForm(new PrintStudentsForm());
             hidingMenu();
         }
        
@@ -82,26 +78,27 @@ namespace Akademiks2._0
             showMenu(panelCourseMenu);
 
         }
+        private void studentCount()
+        {
+            //Display the values
+            totalStudent.Text = "Total Students : " + student.totalStudent();
+            totalMaleStudent.Text = "Male : " + student.totalMaleStudent();
+            totalFemaleStudent.Text = "Female : " + student.totalFemaleStudent();
+        }
 
         private void newCourseButton_Click(object sender, EventArgs e)
         {
-            //openChildForm(new ScoreForm());
-            CourseForm cf = new CourseForm();
-            cf.Show();
-            this.Hide();
+            openChildForm(new CourseForm());
             hidingMenu();
         }
         private void manageCourseButton_Click(object sender, EventArgs e)
         {
-            ManageCourseForm mcf = new ManageCourseForm();
-            mcf.Show();
-            this.Hide();
+            openChildForm(new ManageCourseForm());
             hidingMenu();
         }
         private void printCourseButton_Click(object sender, EventArgs e)
         {
-            PrintCourseForm pcf = new PrintCourseForm();
-            pcf.Show();
+            openChildForm(new PrintCourseForm());
             hidingMenu();
         }
         private void panelScore_Click(object sender, EventArgs e)
@@ -110,35 +107,48 @@ namespace Akademiks2._0
         }
         private void newScoreButton_Click(object sender, EventArgs e)
         {
-            //openChildForm(new ScoreForm());
-            ScoreForm sf = new ScoreForm();
-            sf.Show();
-            this.Hide();
-            //This is for the future
-            //Code
+            openChildForm(new ScoreForm());
+       
             hidingMenu();
         }
         private void manageScoreButton_Click(object sender, EventArgs e)
         {
-            //openChildForm(new ManageScoreForm());
-            ManageScoreForm msf = new ManageScoreForm();
-            msf.Show();
-            this.Hide();
-            //This is for the future
-            //Code
+            openChildForm(new ManageScoreForm());
             hidingMenu();
+        }
+        private Form activeForm = null;
+        private void openChildForm(Form childForm)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            mainPanel.Controls.Add(childForm);
+            mainPanel.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+
         }
         private void printScoreButton_Click(object sender, EventArgs e)
         {
-            //This is for the future
-            //Code
+            openChildForm(new PrintScoreForm());
             hidingMenu();
         }
+     
+        private void dashBoardButton_Click(object sender, EventArgs e)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+            mainPanel.Controls.Add(coverPanel);
+            studentCount();
+
+        }
+       
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
-       
     }
 }

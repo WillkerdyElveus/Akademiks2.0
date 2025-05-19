@@ -37,6 +37,8 @@ namespace Akademiks2._0
                     clearButton.PerformClick();
                     MessageBox.Show("New course inserted", "Add Course", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                    this.courseTableAdapter.Fill(this.studentsDatabaseDataSet.Course);
+
                 }
                 else
                 {
@@ -56,11 +58,40 @@ namespace Akademiks2._0
         {
             courseView.DataSource = course.getCourseList();
             DataGridViewImageColumn imageCol = new DataGridViewImageColumn();
-            imageCol = (DataGridViewImageColumn)courseView.Columns[7];
+            imageCol = (DataGridViewImageColumn)courseView.Columns[5];
             imageCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
         }
 
-        
+        private void courseBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.courseBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.studentsDatabaseDataSet);
 
+        }
+
+        private void CourseForm_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'studentsDatabaseDataSet.Course' table. You can move, or remove it, as needed.
+            this.courseTableAdapter.Fill(this.studentsDatabaseDataSet.Course);
+            // TODO: This line of code loads data into the 'studentsDatabaseDataSet.Course' table. You can move, or remove it, as needed.
+
+        }
+
+        private void courseBindingNavigatorSaveItem_Click_1(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.courseBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.studentsDatabaseDataSet);
+
+        }
+
+        private void courseBindingNavigatorSaveItem_Click_2(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.courseBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.studentsDatabaseDataSet);
+
+        }
     }
 }

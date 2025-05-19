@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using DGVPrinterHelper;
+using System.Data.SqlClient;
 
 namespace Akademiks2._0
 {
@@ -25,7 +26,7 @@ namespace Akademiks2._0
         private void searchButton_Click(object sender, EventArgs e)
         {
 
-            studentView.DataSource = course.getCourseList2(new MySqlCommand("SELECT * FROM  `course` WHERE CONCAT(`CourseName`) Like '%" + searchTextBox.Text + "% '"));
+            courseView.DataSource = course.getCourseList2(new SqlCommand("SELECT * FROM  `course` WHERE CONCAT(`CourseName`) Like '%" + searchTextBox.Text + "% '"));
             searchTextBox.Clear();
     }
 
@@ -41,13 +42,31 @@ namespace Akademiks2._0
             printer.Footer = "Akademiks";
             printer.FooterSpacing = 15;
             printer.printDocument.DefaultPageSettings.Landscape = true;
-            printer.PrintDataGridView(studentView);
+            printer.PrintDataGridView(courseView);
 
         }
 
         private void PrintCourseForm_Load(object sender, EventArgs e)
         {
-            studentView.DataSource = course.getCourseList();
+            // TODO: This line of code loads data into the 'studentsDataSet.Course' table. You can move, or remove it, as needed.
+            this.courseTableAdapter.Fill(this.studentsDataSet.Course);
+            courseView.DataSource = course.getCourseList();
+        }
+
+        private void courseBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.courseBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.studentsDataSet);
+
+        }
+       
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchValue = searchTextBox.Text.Trim();
+            SqlCommand command = new SqlCommand("SELECT * FROM Course WHERE CourseName LIKE @search");
+            command.Parameters.Add("@search", SqlDbType.VarChar).Value = "%" + searchValue + "%";
+            courseView.DataSource = course.getCourseList2(command);
         }
     }
 }

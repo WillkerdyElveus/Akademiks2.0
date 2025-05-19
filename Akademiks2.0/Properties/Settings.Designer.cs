@@ -33,5 +33,16 @@ namespace Akademiks2._0.Properties {
                 return ((string)(this["StudentDatabaseConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\StudentsDatab" +
+            "ase.mdf;Integrated Security=True")]
+        public string StudentsDatabaseConnectionString {
+            get {
+                return ((string)(this["StudentsDatabaseConnectionString"]));
+            }
+        }
     }
 }
